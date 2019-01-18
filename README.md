@@ -33,3 +33,11 @@ Most of it was simple things:
 * Loop counters were off by 1 number. 
 * Several times used = instead of == in If statements 
 ..* and learning that, unlike C# or Java, being a loosely interpreted scripting langauge, having questionNumber=4 in an if statement WILL change the var.
+* the debuging (due to simple problems as commented) ended up using console.log to follow the questions and numbers. Good experience in logging for debuging purposes.
+
+## Future Plans for next branch
+
+* Modal popups instead of alerts.
+* In page interaction. 
+* Better handling of answers
+* move to its own file, call script in page.
