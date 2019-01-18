@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+<head>
+<title>The Bridge Keeper</title>
+<script>
+
+var answers;
+var questionNumber=0;
+var arthur=0;
+var robin=0;
+var lancelot=0;
+var isDone=false;
+var questions = [['What is your Name?', ''], ['What is your Quest?', 'i seek the holy grail'], ['What is your favorite color?', 'blue'], ['What is the airspeed of an unlaiden swallow?', 'african or european?']];
+
+
+
+alert("First Lancelot arrives 'Ask your questions Bridge Keeper, I'm not afraid'. The Bridge Keeper grins a crazy smile. 'Answer me these Questions three, else the other side you shall not see!' says the Bridge Keeper.");
+while(!isDone) //When all three have answered 3 questions the test is over
+{
+//Ask the 3 questions for Lancelot, skipping the first one cause whatever
+while(lancelot<3)
+{
+	if(questionNumber == 0)
+		{
+			prompt(questions[questionNumber][0], "");
+			questionNumber++;
+			lancelot++;
+			console.log('Lancelot Question ' +questionNumber+ ' lancelot='+lancelot+ ' robin='+robin+ ' arthur='+arthur+ ' current Question: ' + questions[questionNumber][0] + ' and answer: ' + questions[questionNumber][1]); 
+			
+		} 
+	else
+		{
+			answers = prompt(questions[questionNumber][0],"").toLowerCase();
+			console.log('Lancelot ' +questionNumber+ ' lancelot='+lancelot+ ' robin='+robin+ ' arthur='+arthur+ ' current Question: ' + questions[questionNumber][0] + ' and answer: ' + questions[questionNumber][1]); 
+			
+			if (answers != questions[questionNumber][1])
+				{
+					alert("Wrong! You are tossed into the abyss. Next up, Robin!")
+					lancelot = 10;
+					questionNumber = 0;
+					console.log('Lancelot: ' +lancelot+ ' and ?# ' +questionNumber);
+				}
+			else
+				{
+					questionNumber++;
+					lancelot++;
+					console.log('Lancelot: ' +lancelot+ ' and ?# ' +questionNumber);
+					let answers = null; //cleanup
+				}
+		}
+}
+
+while (lancelot>=2 && robin<3)
+{
+	if(lancelot==3 && robin==0)
+		{
+			alert('" Right, off you go" the Bridge keeper says to Lancelot. He blinks and passes the bridge. "That was easy!" Robin exclaims, running up to the bridge keeper."');
+			lancelot = 8; //(to remove this from follow up loops. 
+			questionNumber=0; //reset the question number
+			console.log('Lancelot Success');
+			console.log('Robin Question ' +questionNumber+ ' lancelot='+lancelot+ ' robin='+robin+ ' arthur='+arthur+ ' current Question: ' + questions[questionNumber][0] + ' and answer: ' + questions[questionNumber][1]); 
+			
+
+		} else if (lancelot==10 && robin == 0)
+			{
+				alert('Uhoh. Something isnt going right... Robin comes up to the Bridge Keeper')
+				lancelot = 8; //(to remove this from follow up loops. 
+				console.log('Lancelot Fail');
+				console.log('Robin Question ' +questionNumber+ ' lancelot='+lancelot+ ' robin='+robin+ ' arthur='+arthur+ ' current Question: ' + questions[questionNumber][0] + ' and answer: ' + questions[questionNumber][1]); 
+			
+				
+			}
+	if(questionNumber==0)
+		{
+			prompt(questions[questionNumber][0], "");
+			questionNumber++;
+			robin++;
+			console.log('Robin Question ' +questionNumber+ ' lancelot='+lancelot+ ' robin='+robin+ ' arthur='+arthur+ ' current Question: ' + questions[questionNumber][0] + ' and answer: ' + questions[questionNumber][1]); 
+			
+		}
+	else
+		{
+			answers = prompt(questions[questionNumber][0],"").toLowerCase();
+			if (answers != questions[questionNumber][1] || answers == 'blue')
+				{
+					if(questionNumber ==2)
+					{
+						alert("'No wait, Yellow!' Robin screams as he is tossed into the abyss'");
+						robin = 10; // set robin to 'Dead'
+						questionNumber = 0; // reset the question number
+						console.log('Robin Question ' +questionNumber+ ' lancelot='+lancelot+ ' robin='+robin+ ' arthur='+arthur+ ' current Question: ' + questions[questionNumber][0] + ' and answer: ' + questions[questionNumber][1]); 
+			
+					} else
+					{
+						alert("Robin is tossed into the abyss!... King Arthur is up next...");
+						robin = 10;
+						questionNumber=0;
+						console.log('Arthur Question (not Color fail) ' +questionNumber+ ' lancelot='+lancelot+ ' robin='+robin+ ' arthur='+arthur+ ' current Question: ' + questions[questionNumber][0] + ' and answer: ' + questions[questionNumber][1]); 
+			
+					}
+				}
+			else
+				{
+					questionNumber++; 
+					robin++;
+					console.log('Robin Question ' +questionNumber+ ' lancelot='+lancelot+ ' robin='+robin+ ' arthur='+arthur+ ' current Question: ' + questions[questionNumber][0] + ' and answer: ' + questions[questionNumber][1]); 
+			
+					let answers = null; //cleanup
+				}
+		}
+}
+
+while (lancelot>=2 && robin>=3 && arthur<3)
+	{
+		if(robin==10 && arthur==0)
+		{
+			alert('Finally, King Arthur with a worried look arrives.');
+			robin = 15; //(to remove this from follow up loops. 
+			questionNumber=0; //reset the question number.
+			console.log('Robin fail');
+			console.log('Arthur Question ' +questionNumber+ ' lancelot='+lancelot+ ' robin='+robin+ ' arthur='+arthur+ ' current Question: ' + questions[questionNumber][0] + ' and answer: ' + questions[questionNumber][1]); 
+			
+		}
+		else if(robin == 3 && arthur == 0)
+			{
+				alert('Amazingly, Robin made it past. King Arthur comes up confidently to the Bridge Keeper')
+				robin = 8;
+				questionNumber=0;
+				console.log('Robin Success');
+				console.log('Arthur Question ' +questionNumber+ ' lancelot='+lancelot+ ' robin='+robin+ ' arthur='+arthur+ ' current Question: ' + questions[questionNumber][0] + ' and answer: ' + questions[questionNumber][1]); 
+			
+			}
+		if(questionNumber==0)
+			{
+				console.log('Arthur Question ' +questionNumber+ ' lancelot='+lancelot+ ' robin='+robin+ ' arthur='+arthur+ ' current Question: ' + questions[questionNumber][0] + ' and answer: ' + questions[questionNumber][1]); 
+			
+				prompt(questions[questionNumber][0], "");
+				questionNumber=1;
+				console.log('Arthur Question# in first question increase: ' +questionNumber);
+				arthur++;
+				console.log('Arthur Question ' +questionNumber+ ' lancelot='+lancelot+ ' robin='+robin+ ' arthur='+arthur+ ' current Question: ' + questions[questionNumber][0] + ' and answer: ' + questions[questionNumber][1]); 
+			}
+		else
+			{ console.log('Arthur Question ' +questionNumber+ 'lancelot='+lancelot+ ' robin='+robin+ ' arthur='+arthur+ 'current Question: ' + (questions[questionNumber][0]) + ' and answer: ' + (questions[questionNumber][1]) );
+				answers = prompt(questions[questionNumber][0], "").toLowerCase();
+				if (answers != questions[questionNumber][1])
+					{
+						alert("Wrong! You are tossed into the abyss.")
+						arthur = 10 // set arthur to 'Dead'
+						questionNumber = 0 // reset the question number
+						console.log('Arthur Question Fail ' +questionNumber+ ' lancelot='+lancelot+ ' robin='+robin+ ' arthur='+arthur+ ' current Question: ' + questions[questionNumber][0] + ' and answer: ' + questions[questionNumber][1]); 
+			
+						
+					}
+				else
+					{
+					
+					
+					questionNumber++; 
+			
+						if(questionNumber==2)
+						{
+							questionNumber++; // Skip to the different 3rd question for Arthur
+							console.log('Arthur Question# skip to 3rd question: question number: ' +questionNumber);
+							
+						
+						}
+					arthur++;
+					
+			
+					let answers = null; //cleanup
+					}
+			}
+		if (questionNumber==4) // This. RIght here. I was trying to debug why it kept erroring out on Question 2 of King Arthur... and this was questionNumber=4 not ==4. Of course it was. 
+			{
+				isDone=true;
+			}
+	}
+}
+
+if(arthur != 10)
+{
+alert("'I... I don't know?' the Bridge Keeper cries as he is flung into the abyss.");
+			
+}
+else
+{
+alert("Oh dear. You failed quest for the Holy Grail");
+			
+}
+
+
+
+
+
+</script>
+
+
+
+</head>
+
+
