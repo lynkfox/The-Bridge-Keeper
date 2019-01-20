@@ -48,6 +48,8 @@ Most of it was simple things:
 
 This branch has been merged.
 
+# Iteration 2 (Very Basic CSS Manipulation)
+
 ## Second Branch: v0.2: CSS version
 
 * This version of Bridge Keeper will move the entire interaction out of alerts and into the page, using CSS elements.
