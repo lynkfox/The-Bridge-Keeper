@@ -37,11 +37,19 @@ Most of it was simple things:
 
 ## Future Plans for next branch
 
-* Modal popups instead of alerts.
+* Modal popups instead of alerts. (bootstrap?)
 * In page interaction. 
 * Better handling of answers
 * move to its own file, call script in page.
 
-# First Branch:
+~~# First Branch:~~
 
-Simple branch for readme Edits (the above title and below). Experimentation with GitHub features.
+~~Simple branch for readme Edits (the above title and below). Experimentation with GitHub features.~~
+
+This branch has been merged.
+
+## Second Branch: v0.2: CSS version
+
+* This version of Bridge Keeper will move the entire interaction out of alerts and into the page, using CSS elements.
+* Additionaly, several repeative coding actions will be moved into functions to clean up the code.
+* Preperation will begin for moving this to its own js file, as well as working to impliment necessary libraries for other functions.
