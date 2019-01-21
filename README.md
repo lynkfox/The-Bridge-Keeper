@@ -62,3 +62,9 @@ This branch has been merged.
 * Jquery used for click(), as well as hiding and showing elements (by .css, not hide() or show()
 ..* Deliberate choice. hide() doesn't necessarily remove it from the page, where as .css('display', 'none') will take it out of consideration, removing blank spaces that could come from hidden elements (possibly)
 * No errors when the page loads! ... but nothing currently happening. Button click for Block/None will have to be further debugged in next update.
+
+## Second Update:
+
+* Oops. Of coures Return ends a function. incrimental increase on character level was *after* Return. No incrimenting would take place. This has been fixed
+* Debuging console code added: Button is calling the nextQuestion function properly, and properly (after some debugging) cycling through all 3 characters and questions. Arthur still needs a use case to switch him to a seperate question, but this will come.
+* Either dialogueDisAppear or checkQuestion is still not providing the proper div elements to be unhidden. Further debuging required.
