@@ -2,29 +2,86 @@
 <html>
 <head>
 <title>The Bridge Keeper v0.2</title>
+<link rel="stylesheet" type="text/css" href="css/format.css">
+<script src="js/jquery-3.3.1.js"></script>
+
+
+
+</head>
+
+<body>
+
+<div id="start"> <p>"The Knights of Camelot approach the Bridge Keeper. He guards the only path across this chasm, on their quest for the Holy Grail. They have been warned about this challenge, and approach warrily. First, Lancelot approaches the Bridge Keeper. </p>
+
+<p>The Bridge Keeper grins a crooked crazy smile. " Stop! Who would cross the Bridge of Death must answer me these questions three, ere the other side he see."</p>
+
+<p>"Ask me the questions, bridgekeeper. I am not afraid." Lancelot replies...</p>
+</div>
+<div id="name"><p>"What... is your name?"</p></div><div id="quest"><p>"What... is your quest?"</p></div><div id="color"><p>"What... is your favorite color?"</p></div><div id="swallow"><p>"What... is the air-speed velocity of an unladen swallow?"</p></div>
+<div id="interlude1"><p>Lancelot, surprised, passes the Gorge of Eternal Peril via the Bridge of Death, dissapearing into the fog.</p>
+
+<p>Robin, blinks. "That's Easy!" he explains and walks up to the Bridge Keeper.</p>
+
+<p>"Stop! Who approacheth the Bridge of Death must answer me these questions three, ere the other side he see." The Bridge Keeper says.</p>
+
+<p>"Ask me the questions, bridgekeeper. I am not afraid." Robin replies...</p></div>
+<div id="interlude2"><p>"No wait, Yellow!" Robin screams as he is cast from the Bridge of Death into the Gorge of Eternal Peril. The Bridgekeeper laughs.</p>
+
+<p> Worried, King Arthur approaches. "Stop! Who approacheth the Bridge of Death must answer me these questions three, ere the other side he see." The Bridge Keeper says.</p></div>
+<div id="end"><p>The Quest for the Holy Grail continues, though perhaps with a few less Knights...</p></div>
+
+
+<button>Next!</button>
+
+
 <script>
 
+
+var arthur=0;
+var robin=0;
+var lancelot=0;
+var isDone=false;
+var interlude=0;
+
+/*  question variable values:
+
+0-3 - The question the character is on (or the panel between characters)
+8 - Character has been cast into the abyss
+10 - Character successfully passes the abyss
+15 - reset value.
+
 /*
-##dialogueDisAppear
+##dialogueDisAppear (dialogue dissappear / appear)
 
 This function is kinda quick and dirty. It will be used to selectively bring in and out the 'Text Boxes' of the various dialogue and question choices.
 
-Parameters: the div name of the box to appear or dissapear
+
 
 todo: modal bootstrap boxes?
+
+Changelog:
+
+removed parameter, combining all three functions together.
+learned getElementByID is unstable for all browsers, exploring jquery library.
 */
 
-function dialogueDisAppear(divID)  
-{
-	var divToChange = document.getElementByID(divID);
-	if (divToChange.style.display === "none")
+//Slightly bad code. Shouldn't attach this to all buttons, but we only have one so... 
+
+$("button").click(function dialogueDisAppear(){
+
+	var divID=checkQuestion(nextQuestion());
+	
+	if ($(divID).css('display') === 'none')
 	{
-		divToChang.style.display = "block";
+		$(divID).css('display', 'block');
 	} else
 	{
-		divToChange.style.display = "none";
+		$(divID).css('display', 'none');
 	}
-}
+});
+
+
+
 
 /*
 ## checkQuestion
@@ -38,28 +95,47 @@ todo: change to a switch function.
 
 function checkQuestion(character)
 {
-	var question = 'name';
-	if(character == 0)
+	var question = '#start';
+	if(character == '#interlude')
 	{
-		return question;
+		// seperate check function to pull out if the interlude is selected
+		if (character == 0)
+		{
+			return question;
+		}	
+		else if (character == 1)
+		{
+			question == '#interlude1';
+			return question;
+		}
+		else if (character == 2)
+		{
+			question == '#interlude2';
+			return question;
+		} else if (character == 3)
+		{
+			question == '#end';
+			return question;
+		}
+	
 	} else if (character == 1)
 	{
-		question = 'quest';
+		question = '#name';
 		return question;
 	}
 	else if (character == 2)
 	{
-		question = 'color';
+		question = '#quest';
 		return question;
 	}
 	else if (character == 3)
 	{
-		question = 'swallow';
+		question = '#color';
 		return question;
 	}
-	else
+	else if (character == 4)
 	{
-		question = 'error';
+		question = '#swallow';
 		return question;
 	}
 }
@@ -70,26 +146,73 @@ function checkQuestion(character)
 
 This function is for the button press. It automatically advances the question track, plus when necessary, advances to the next charcter
 
-todo: Write it.
+It returns the character name (or interlude level) for the question to be asked.
 */
 
 function nextQuestion()
 {
+	var characterName;
+
+	if(lancelot < 3)
+	{
+		characterName='lancelot';
+		return characterName;
+		lancelot++;
+		
+	}
+	else if (lancelot ==3 )
+	{
+		// When Lancelot has asked all three questions, incriment him again, and move from Start to Interlude 1 (interlude == 0 to interlude == 1)
+		
+		// To do : Death check, to set Lancelot == 8 for death, == 10 for success.
+		lancelot++;
+		interlude++;
+		characterName = 'interlude';
+		return characterName;
+	}
+	else if ( lancelot >3 && robin < 3)
+	{
+		characterName='robin';
+		return characterName;
+		robin++;
+	}
+	else if (lancelot > 3 && robin == 3)
+	{
+		// Just like the above Lancelot section. moves Robin past the last question, and advances the interlude.
+		
+		// Again: To Do: death check.
+		robin++;
+		interlude++;
+		characterName = 'interlude';
+		return characterName;
+	}
+	else if (lancelot >3 && robin >3 && arthur<3)
+	{
+		characterName='arthur';
+		return characterName;
+		arthur++;
+	}
+	else if (lancelot >=5 && robin >=5 && arthur>=5)
+	{
+		// Reset branch: Should be called when all questions are asked, reseting to the base.
+		arthur = 0;
+		robin = 0;
+		lancelot=0;
+		interlude=0;				
+	}
+	else
+	{
+		characterName = 'interlude';
+		return characterName;
+		interlude++;
+		
+	}
 
 }
 
-var answers;
-var arthur=0;
-var robin=0;
-var lancelot=0;
-var isDone=false;
+/*
 
-
-//shouldn't need this shortly.
-var questionNumber=0;
-
-// shouldn't need this shortly.
-var questions = [['What is your Name?', ''], ['What is your Quest?', 'i seek the holy grail'], ['What is your favorite color?', 'blue'], ['What is the airspeed of an unlaiden swallow?', 'african or european?']];
+# old code: to be removed for final v2 (CSS Elements). Kept at this point for reference
 
 
 
@@ -268,14 +391,11 @@ alert("Oh dear. You failed quest for the Holy Grail");
 			
 }
 
-
+*/
 
 
 
 </script>
+</body>
 
-
-
-</head>
-
-
+</html>

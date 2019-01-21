@@ -1,0 +1,19 @@
+#start,
+#end,
+#interlude1,
+#interlude2,
+#name,
+#quest,
+#color,
+#swallow
+{
+	width: 50%;
+	padding: 75px 15px 75px 15px;
+	text-align: top;
+	background-color: #6A91F1;
+	border: 2px black solid;
+	margin: auto;
+	display: none;
+}
+
+	
