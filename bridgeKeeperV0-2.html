@@ -31,7 +31,7 @@
 <div id="end"><p>The Quest for the Holy Grail continues, though perhaps with a few less Knights...</p></div>
 
 
-<button>Next!</button>
+<button class="nextButton">Next!</button>
 
 
 <script>
@@ -65,10 +65,11 @@ removed parameter, combining all three functions together.
 learned getElementByID is unstable for all browsers, exploring jquery library.
 */
 
-//Slightly bad code. Shouldn't attach this to all buttons, but we only have one so... 
 
-$("button").click(function dialogueDisAppear(){
 
+$(document).ready(".nextButton").click(function dialogueDisAppear(){
+
+	console.log("Button Clicked");
 	var divID=checkQuestion(nextQuestion());
 	
 	if ($(divID).css('display') === 'none')
@@ -155,56 +156,70 @@ function nextQuestion()
 
 	if(lancelot < 3)
 	{
+		
 		characterName='lancelot';
-		return characterName;
 		lancelot++;
+		console.log("Lancelot Advanced: " +lancelot );
+		return characterName;
 		
 	}
 	else if (lancelot ==3 )
 	{
+		
 		// When Lancelot has asked all three questions, incriment him again, and move from Start to Interlude 1 (interlude == 0 to interlude == 1)
 		
 		// To do : Death check, to set Lancelot == 8 for death, == 10 for success.
 		lancelot++;
 		interlude++;
 		characterName = 'interlude';
+		console.log("Lancelot Advanced, Interlude 1: " + lancelot + ", " +interlude );
 		return characterName;
 	}
 	else if ( lancelot >3 && robin < 3)
 	{
+		
 		characterName='robin';
-		return characterName;
 		robin++;
+		console.log("Robin Advanced: " + robin);
+		return characterName;
 	}
 	else if (lancelot > 3 && robin == 3)
 	{
+		
 		// Just like the above Lancelot section. moves Robin past the last question, and advances the interlude.
 		
 		// Again: To Do: death check.
 		robin++;
 		interlude++;
 		characterName = 'interlude';
+		console.log("Robin Advanced, Interlude 2: " + robin + ", " + interlude);
 		return characterName;
 	}
 	else if (lancelot >3 && robin >3 && arthur<3)
 	{
+		
 		characterName='arthur';
-		return characterName;
 		arthur++;
+		console.log("Arthur Advanced: " + arthur);
+		return characterName;
 	}
-	else if (lancelot >=5 && robin >=5 && arthur>=5)
+	else if (lancelot >3 && robin >3 && arthur>2 && interlude >2)
 	{
+		
 		// Reset branch: Should be called when all questions are asked, reseting to the base.
 		arthur = 0;
 		robin = 0;
 		lancelot=0;
-		interlude=0;				
+		interlude=0;
+		console.log("Reset: " +arthur + robin + lancelot + interlude);		
 	}
 	else
 	{
+		
 		characterName = 'interlude';
-		return characterName;
 		interlude++;
+		console.log("No charcter advance, Interlude Advanced: " +interlude);
+		return characterName;
 		
 	}
 
