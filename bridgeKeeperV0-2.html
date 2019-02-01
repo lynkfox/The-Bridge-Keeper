@@ -11,31 +11,14 @@
 
 <body>
 
-<div id="start"> <p>"The Knights of Camelot approach the Bridge Keeper. He guards the only path across this chasm, on their quest for the Holy Grail. They have been warned about this challenge, and approach warrily. First, Lancelot approaches the Bridge Keeper. </p>
-
-<p>The Bridge Keeper grins a crooked crazy smile. " Stop! Who would cross the Bridge of Death must answer me these questions three, ere the other side he see."</p>
-
-<p>"Ask me the questions, bridgekeeper. I am not afraid." Lancelot replies...</p>
-</div>
-<div id="name"><p>"What... is your name?"</p></div><div id="quest"><p>"What... is your quest?"</p></div><div id="color"><p>"What... is your favorite color?"</p></div><div id="swallow"><p>"What... is the air-speed velocity of an unladen swallow?"</p></div>
-<div id="interlude1"><p>Lancelot, surprised, passes the Gorge of Eternal Peril via the Bridge of Death, dissapearing into the fog.</p>
-
-<p>Robin, blinks. "That's Easy!" he explains and walks up to the Bridge Keeper.</p>
-
-<p>"Stop! Who approacheth the Bridge of Death must answer me these questions three, ere the other side he see." The Bridge Keeper says.</p>
-
-<p>"Ask me the questions, bridgekeeper. I am not afraid." Robin replies...</p></div>
-<div id="interlude2"><p>"No wait, Yellow!" Robin screams as he is cast from the Bridge of Death into the Gorge of Eternal Peril. The Bridgekeeper laughs.</p>
-
-<p> Worried, King Arthur approaches. "Stop! Who approacheth the Bridge of Death must answer me these questions three, ere the other side he see." The Bridge Keeper says.</p></div>
-<div id="end"><p>The Quest for the Holy Grail continues, though perhaps with a few less Knights...</p></div>
-
 
 <button class="nextButton">Next!</button>
 
 
 <script>
 
+!function() //IIFE good coding practices. No messy polluted global variables.
+{
 
 var arthur=0;
 var robin=0;
@@ -61,17 +44,18 @@ todo: modal bootstrap boxes?
 
 Changelog:
 
-removed parameter, combining all three functions together.
-learned getElementByID is unstable for all browsers, exploring jquery library.
+removed parameter, combining all three functions together. (IIFE practices)
+learned getElementByID is unstable for some browsers, exploring jquery library.
 */
 
 
 
 $(document).ready(".nextButton").click(function dialogueDisAppear(){
 
-	console.log("Button Clicked");
-	var divID=checkQuestion(nextQuestion());
+	var test=nextQuestion();
 	
+	var divID = checkQuestion(test);
+	console.log("Button Click, functions called. divID is: " +divID + ' Test is: ' + test);
 	if ($(divID).css('display') === 'none')
 	{
 		$(divID).css('display', 'block');
@@ -96,48 +80,82 @@ todo: change to a switch function.
 
 function checkQuestion(character)
 {
-	var question = '#start';
-	if(character == '#interlude')
+	/* Notes for anyone reviewing my code for interview/school purposes:
+	
+	Today I learned that declaring the variable question, and trying to return that variable, doesn't work in javascript because of block scope. Trying to return var question has no scope outside of the function. It doesn't exist. This is wholly unlike what I am used to in other languages, but it was an important lesson to learn! Hence why I make a note of it.
+	let question = '#start'; 
+	*/
+	
+	let whatQuestion=0;
+	
+	/* Oh. My Goodness. You can see from previous itterations of this code that I was checking character for a numeric value, when it was being passed a string. untyped variables is hard to wrap my head around, but 
+	i'm getting there.
+	*/
+	
+	if(character == 'interlude')
 	{
 		// seperate check function to pull out if the interlude is selected
-		if (character == 0)
+		if (interlude == 0)
 		{
-			return question;
+			console.log("Interlude is: " +interlude);
+			return '#start';
 		}	
-		else if (character == 1)
+		else if (interlude == 1)
 		{
-			question == '#interlude1';
-			return question;
+			
+			
+			console.log("Interlude is: " +interlude);
+			return '#interlude1';
 		}
-		else if (character == 2)
+		else if (interlude == 2)
 		{
-			question == '#interlude2';
-			return question;
-		} else if (character == 3)
+			
+			
+			console.log("Interlude is: " +interlude);
+			return '#interlude2';
+			
+		} else if (interlude == 3)
 		{
-			question == '#end';
-			return question;
+			
+			console.log("Interlude is: " +interlude);
+			return '#end';
 		}
 	
-	} else if (character == 1)
+	} else if(character == 'lancelot')
 	{
-		question = '#name';
-		return question;
+		whatQuestion = lancelot;
+	} else if (character == 'robin')
+	{
+		whatQuesteion = robin;
+	} else if (character == 'arthur')
+	{
+		whatQuestion = arthur;
+	} else
+	{
+		return '#error';
 	}
-	else if (character == 2)
+	
+	
+	
+	if (whatQuestion == 1)
 	{
-		question = '#quest';
-		return question;
+		console.log("Question is: #name");
+		return '#name';
 	}
-	else if (character == 3)
+	else if (whatQuestion == 2)
 	{
-		question = '#color';
-		return question;
+		console.log("Question is: #quest");
+		return '#quest';
 	}
-	else if (character == 4)
+	else if (whatQuestion == 3)
 	{
-		question = '#swallow';
-		return question;
+		console.log("Question is: #color");
+		return '#color';
+	}
+	else if (whatQuestion == 4)
+	{
+		console.log("Question is: #swallow");
+		return '#swallow';
 	}
 }
 
@@ -152,15 +170,15 @@ It returns the character name (or interlude level) for the question to be asked.
 
 function nextQuestion()
 {
-	var characterName;
+	
 
 	if(lancelot < 3)
 	{
 		
-		characterName='lancelot';
+		
 		lancelot++;
 		console.log("Lancelot Advanced: " +lancelot );
-		return characterName;
+		return 'lancelot';
 		
 	}
 	else if (lancelot ==3 )
@@ -171,17 +189,15 @@ function nextQuestion()
 		// To do : Death check, to set Lancelot == 8 for death, == 10 for success.
 		lancelot++;
 		interlude++;
-		characterName = 'interlude';
 		console.log("Lancelot Advanced, Interlude 1: " + lancelot + ", " +interlude );
-		return characterName;
+		return 'interlude';
 	}
 	else if ( lancelot >3 && robin < 3)
 	{
 		
-		characterName='robin';
 		robin++;
 		console.log("Robin Advanced: " + robin);
-		return characterName;
+		return 'robin';
 	}
 	else if (lancelot > 3 && robin == 3)
 	{
@@ -191,17 +207,16 @@ function nextQuestion()
 		// Again: To Do: death check.
 		robin++;
 		interlude++;
-		characterName = 'interlude';
 		console.log("Robin Advanced, Interlude 2: " + robin + ", " + interlude);
-		return characterName;
+		return 'interlude';
 	}
 	else if (lancelot >3 && robin >3 && arthur<3)
 	{
+		// To do: Arthur Question 4 (Swallow)
 		
-		characterName='arthur';
 		arthur++;
 		console.log("Arthur Advanced: " + arthur);
-		return characterName;
+		return 'arthur';
 	}
 	else if (lancelot >3 && robin >3 && arthur>2 && interlude >2)
 	{
@@ -211,20 +226,21 @@ function nextQuestion()
 		robin = 0;
 		lancelot=0;
 		interlude=0;
-		console.log("Reset: " +arthur + robin + lancelot + interlude);		
+		console.log("Reset: " +arthur + robin + lancelot + interlude);	
+		return 'start';
 	}
 	else
 	{
 		
-		characterName = 'interlude';
 		interlude++;
 		console.log("No charcter advance, Interlude Advanced: " +interlude);
-		return characterName;
+		return 'interlude';
 		
 	}
 
 }
 
+}();
 /*
 
 # old code: to be removed for final v2 (CSS Elements). Kept at this point for reference
@@ -411,6 +427,27 @@ alert("Oh dear. You failed quest for the Holy Grail");
 
 
 </script>
+
+<div id="start"> <p>"The Knights of Camelot approach the Bridge Keeper. He guards the only path across this chasm, on their quest for the Holy Grail. They have been warned about this challenge, and approach warrily. First, Lancelot approaches the Bridge Keeper. </p>
+
+<p>The Bridge Keeper grins a crooked crazy smile. " Stop! Who would cross the Bridge of Death must answer me these questions three, ere the other side he see."</p>
+
+<p>"Ask me the questions, bridgekeeper. I am not afraid." Lancelot replies...</p>
+</div>
+<div id="name"><p>"What... is your name?"</p></div><div id="quest"><p>"What... is your quest?"</p></div><div id="color"><p>"What... is your favorite color?"</p></div><div id="swallow"><p>"What... is the air-speed velocity of an unladen swallow?"</p></div>
+<div id="interlude1"><p>Lancelot, surprised, passes the Gorge of Eternal Peril via the Bridge of Death, dissapearing into the fog.</p>
+
+<p>Robin, blinks. "That's Easy!" he explains and walks up to the Bridge Keeper.</p>
+
+<p>"Stop! Who approacheth the Bridge of Death must answer me these questions three, ere the other side he see." The Bridge Keeper says.</p>
+
+<p>"Ask me the questions, bridgekeeper. I am not afraid." Robin replies...</p></div>
+<div id="interlude2"><p>"No wait, Yellow!" Robin screams as he is cast from the Bridge of Death into the Gorge of Eternal Peril. The Bridgekeeper laughs.</p>
+
+<p> Worried, King Arthur approaches. "Stop! Who approacheth the Bridge of Death must answer me these questions three, ere the other side he see." The Bridge Keeper says.</p></div>
+<div id="end"><p>The Quest for the Holy Grail continues, though perhaps with a few less Knights...</p></div>
+
+
 </body>
 
 </html>
