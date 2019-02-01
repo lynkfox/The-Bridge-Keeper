@@ -48,7 +48,7 @@ Most of it was simple things:
 
 This branch has been merged.
 
-# Iteration 2 (CSS and Jquery, Bridge Keeper v.2
+# Iteration 2 (CSS and Jquery, Bridge Keeper v0.2)
 
 ## Second Branch: v0.2: CSS version
 
@@ -56,15 +56,24 @@ This branch has been merged.
 * Additionaly, several repeative coding actions will be moved into functions to clean up the code.
 * Preperation will begin for moving this to its own js file, as well as working to impliment necessary libraries for other functions.
 
-### First update:
+### v0.2.0
 
 * Functions created
-* Jquery used for click(), as well as hiding and showing elements (by .css, not hide() or show()
-..* Deliberate choice. hide() doesn't necessarily remove it from the page, where as .css('display', 'none') will take it out of consideration, removing blank spaces that could come from hidden elements (possibly)
+* Jquery used for click(), as well as hiding and showing elements (by .css, not hide() or show() )
+.. Deliberate choice. hide() doesn't necessarily remove it from the page, where as .css('display', 'none') will take it out of consideration, removing blank spaces that could come from hidden elements (possibly). 
 * No errors when the page loads! ... but nothing currently happening. Button click for Block/None will have to be further debugged in next update.
 
-## Second Update:
+## v0.2.1
 
-* Oops. Of coures Return ends a function. incrimental increase on character level was *after* Return. No incrimenting would take place. This has been fixed
+* Oops. Of course Return ends a function. incrimental increase on character level was *after* Return. No incrimenting would take place. This has been fixed
 * Debuging console code added: Button is calling the nextQuestion function properly, and properly (after some debugging) cycling through all 3 characters and questions. Arthur still needs a use case to switch him to a seperate question, but this will come.
 * Either dialogueDisAppear or checkQuestion is still not providing the proper div elements to be unhidden. Further debuging required.
+
+## v0.2.2
+
+* Change in way return's were being handled from each expression (cleaner, less scope issues, less variables hanging about)
+* discovered bug: untyped variables don't throw errors when you pass a string and are trying to check it against an int. Fixed.
+* wrapped the whole thing in a proper IIFE: No messy global variables
+* div Elements are now being changed when the button is clicked.
+* additional code will be needed to close last div function and open new one.
+
